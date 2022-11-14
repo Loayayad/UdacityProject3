@@ -199,7 +199,7 @@ jobs:
             echo TYPEORM_USERNAME=$TYPEORM_USERNAME >> backend/.env
             cat backend/.env
             cd .circleci/ansible
-            ansible-playbook -i inventory.txt configure-server.yaml
+            ansible-playbook -i inventory.txt configure-server.yml
       - destroy-environment
 
   run-migrations: # create run-migrations
