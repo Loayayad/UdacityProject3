@@ -172,7 +172,7 @@ jobs:
 
   configure-infrastructure:  # create configure-infrastructure
     docker:
-      - image: python:3.9.0-alpine
+      - image: cimg/python:3.10
     steps:
       - checkout
       - add_ssh_keys:
