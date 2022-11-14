@@ -175,14 +175,15 @@ jobs:
       - image: python:3.7-alpine3.11
     steps:
       - checkout
-      - run: 
-          name: Install dependencies
-          command: |
-            apk add --update tar gzip ansible aws-cli
+      - run: apk add --update tar gzip      
       - attach_workspace:
           at: ~/
       - add_ssh_keys:
           fingerprints: ["ab:38:04:72:5b:de:be:74:a5:65:c7:6a:d9:b8:e2:ed"]
+      - run: 
+          name: Install dependencies
+          command: |
+            apk add --update ansible
       - run:
           name: Configure server
           command: |
