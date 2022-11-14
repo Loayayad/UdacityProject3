@@ -172,22 +172,34 @@ jobs:
 
   configure-infrastructure:  # create configure-infrastructure
     docker:
-      - image: python:3.7-alpine3.11
+      - image: python:3.9.0-alpine
     steps:
       - checkout
-      - run: apk add --update tar gzip
-      - attach_workspace:
-          at: ~/
       - add_ssh_keys:
           fingerprints: ["b1:ff:bc:6b:6b:7c:b9:8c:9f:03:ec:4d:e4:ff:a2:0b"]
       - run:
           name: Install dependencies
           command: |
-            apk add --update ansible
+            apk add --update --no-cache tar gzip ansible aws-cli
+      - attach_workspace:
+          at: ~/
       - run:
           name: Configure server
           command: |
-            ansible-playbook .circleci/ansible/configure-server.yml -i .circleci/ansible/inventory.txt
+            # add environment variables to server
+            echo ENVIRONMENT=production > backend/.env
+            echo TYPEORM_CONNECTION=$TYPEORM_CONNECTION >> backend/.env
+            echo TYPEORM_DATABASE=$TYPEORM_DATABASE >> backend/.env
+            echo TYPEORM_ENTITIES=$TYPEORM_ENTITIES >> backend/.env
+            echo TYPEORM_HOST=$TYPEORM_HOST >> backend/.env
+            echo TYPEORM_MIGRATIONS=$TYPEORM_MIGRATIONS >> backend/.env
+            echo TYPEORM_MIGRATIONS_DIR=$TYPEORM_MIGRATIONS_DIR >> backend/.env
+            echo TYPEORM_PASSWORD=$TYPEORM_PASSWORD >> backend/.env
+            echo TYPEORM_PORT=$TYPEORM_PORT >> backend/.env
+            echo TYPEORM_USERNAME=$TYPEORM_USERNAME >> backend/.env
+            cat backend/.env
+            cd .circleci/ansible
+            ansible-playbook -i inventory.txt configure-server.yaml
       - destroy-environment
 
   run-migrations: # create run-migrations
