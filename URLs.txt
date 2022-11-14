@@ -1,0 +1,11 @@
+A public git repository.[URL01]
+https://github.com/Loayayad/UdacityProject3
+
+URL to S3 Bucket
+URL02 => http://udapeople-3afecc6.s3-website-us-east-1.amazonaws.com
+
+URL to  CloudFront distribution
+URL03  => d3u47yepenvb18.cloudfront.net	
+
+
+
