@@ -265,6 +265,10 @@ jobs:
     steps:
       - checkout
       - run: sudo apt-get install tar gzip -y
+      - run:
+          name: Install dependencies
+          command: |
+            apk add --update ansible nodejs npm
       - run: 
           name: Install aws_cli
           command: |
@@ -272,9 +276,7 @@ jobs:
             sudo apt-get update && sudo apt-get install -yy less
             curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
             unzip awscliv2.zip
-            sudo ./aws/install    
-      - install_ansible
-      - install_nodejs
+            sudo ./aws/install          
       - add_ssh_keys:
           fingerprints: ["ab:38:04:72:5b:de:be:74:a5:65:c7:6a:d9:b8:e2:ed"]
       - attach_workspace:
