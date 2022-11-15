@@ -21,6 +21,17 @@
         name: python3
         state: latest
         update_cache: yes
+  
+  - name: "Install Node.js 13"
+    apt:
+      name: nodejs
+      state: latest
+      update_cache: yes 
+    
+  - name: "Install PM2 Globally"
+    npm:
+       name: pm2
+       global: yes
 
   environment:
   - TYPEORM_CONNECTION: "{{ lookup('env', 'TYPEORM_CONNECTION')}}"

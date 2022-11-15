@@ -24,15 +24,20 @@
     - TYPEORM_MIGRATIONS_DIR: "{{ lookup('env', 'TYPEORM_MIGRATIONS_DIR')}}"
 
   pre_tasks:
-    - name: "wait 600 seconds for target connection to become reachable/usable."
-      wait_for_connection:
-        timeout: 600
-
     - name: "install python for Ansible."
       apt:
         name: python3
         state: latest
         update_cache: yes
-        
+    - name: "Install Node.js 13"
+      apt:
+        name: nodejs
+        state: latest
+        update_cache: yes     
+    - name: "Install PM2 Globally"
+      npm:
+        name: pm2
+        global: yes
+           
   roles:
     - deploy
