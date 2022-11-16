@@ -202,7 +202,7 @@ jobs:
       - image: python:3.7-alpine3.11
     steps:
       - checkout
-      - run: apk add --update tar gzip ansible aws-cli     
+      - run: apk add --update tar gzip      
       - attach_workspace:
           at: ~/
       - add_ssh_keys:
@@ -303,7 +303,7 @@ jobs:
             ansible-playbook -i inventory.txt deploy-backend.yml            
       - destroy-environment   
       - revert-migrations 
-
+      
   deploy-frontend:
     docker:
       - image: cimg/node:13.8.0
