@@ -304,7 +304,7 @@ jobs:
             pip install awscli
             aws --version         
       - restore_cache:
-          keys: [backend-deps]
+          keys: [backend-build]
       - run:
           command: |
             cd backend
@@ -324,8 +324,8 @@ jobs:
             echo "Contents  of the inventory file is -------"
             cat inventory.txt
             ansible-playbook -i inventory.txt deploy-backend.yml            
-      - destroy-environment   
-      - revert-migrations 
+      # - destroy-environment   
+      # - revert-migrations 
 
   smoke-test:
     docker:
